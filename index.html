@@ -70,7 +70,7 @@
         <div class="absolute inset-0 bg-black/20 z-0"></div>
 
         <!-- AREA UI ATAS -->
-        <div class="absolute top-0 left-0 w-full p-4 z-10 flex flex-col gap-3">
+        <div class="absolute top-0 left-0 w-full p-4 z-10">
             
             <!-- Baris 1: Profil Host & Penonton -->
             <div class="flex justify-between items-start">
@@ -112,8 +112,8 @@
             </div>
 
             <!-- Top Gifts Panel (Kanan Atas) -->
-            <div class="self-end bg-black/60 backdrop-blur-md rounded-xl p-3 w-40 text-xs shadow-lg border border-white/10">
-                <div class="text-center font-bold mb-2 text-shadow">Top Gifts</div>
+            <div class="absolute top-14 right-4 bg-black/60 backdrop-blur-md rounded-xl p-2.5 w-36 text-xs shadow-lg border border-white/10">
+                <div class="text-center font-bold mb-2 text-shadow text-[11px]">Top Gifts</div>
                 <div class="flex justify-between items-center mb-1">
                     <span>Rina</span><span class="font-bold">🌹 20</span>
                 </div>
@@ -139,13 +139,13 @@
 
         <!-- AREA CHAT (Kiri Bawah) -->
         <div id="chat-container" class="absolute bottom-[70px] left-4 w-3/4 h-[250px] overflow-y-auto no-scrollbar flex flex-col justify-end pb-2 z-20 mask-chat">
-            <div id="chat-messages" class="flex flex-col gap-2">
+            <div id="chat-messages" class="flex flex-col gap-1.5">
                 <!-- Chat awal -->
-                <div class="chat-item flex items-start gap-2 bg-black/30 backdrop-blur-sm p-1.5 rounded-lg w-max max-w-full">
-                    <img src="https://i.pravatar.cc/150?img=1" class="w-7 h-7 rounded-full mt-0.5" alt="User">
+                <div class="chat-item flex items-start gap-1.5 bg-black/30 backdrop-blur-sm p-1 rounded-lg w-max max-w-full">
+                    <img src="https://i.pravatar.cc/150?img=1" class="w-5 h-5 rounded-full mt-0.5" alt="User">
                     <div>
-                        <span class="font-bold text-sm text-gray-300">Sistem :</span>
-                        <span class="text-sm text-white text-shadow">Selamat datang di live streaming! Be respectful.</span>
+                        <span class="font-bold text-xs text-gray-300">Sistem :</span>
+                        <span class="text-xs text-white text-shadow">Selamat datang di live streaming! Be respectful.</span>
                     </div>
                 </div>
             </div>
@@ -250,15 +250,15 @@
             const randomImg = `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`;
             const isLevelUp = Math.random() > 0.8; // 20% chance ada badge level
 
-            const levelBadge = isLevelUp ? `<span class="bg-yellow-500 text-black text-[10px] px-1 rounded-sm mr-1 font-bold">Lv.${Math.floor(Math.random()*50)+1}</span>` : '';
+            const levelBadge = isLevelUp ? `<span class="bg-yellow-500 text-black text-[9px] px-1 rounded-sm mr-1 font-bold">Lv.${Math.floor(Math.random()*50)+1}</span>` : '';
 
             const chatHTML = `
-                <div class="chat-item flex items-start gap-2 bg-black/30 backdrop-blur-sm p-1.5 rounded-lg w-max max-w-[90%]">
-                    <img src="${randomImg}" class="w-7 h-7 rounded-full mt-0.5 border border-gray-600" alt="${randomName}">
+                <div class="chat-item flex items-start gap-1.5 bg-black/30 backdrop-blur-sm p-1 rounded-lg w-max max-w-[90%]">
+                    <img src="${randomImg}" class="w-5 h-5 rounded-full mt-0.5 border border-gray-600" alt="${randomName}">
                     <div class="leading-tight">
                         ${levelBadge}
-                        <span class="font-bold text-sm text-gray-200">${randomName} :</span>
-                        <span class="text-sm text-white text-shadow ml-1">${randomMsg}</span>
+                        <span class="font-bold text-xs text-gray-200">${randomName} :</span>
+                        <span class="text-xs text-white text-shadow ml-1">${randomMsg}</span>
                     </div>
                 </div>
             `;
